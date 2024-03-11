@@ -38,3 +38,4 @@ terraform.rc
 /ansible/ssh/id_rsa.pub
 /ansible/vault.key
 /ansible/hosts.yaml
+temp

@@ -17,3 +17,7 @@ tasks:
     desc: "Only for exec iac tools container"
     cmds:
       - $IAC_TOOLS bash
+  
+  all_in:
+    - task: terraform:all
+    - task: ansible:play
