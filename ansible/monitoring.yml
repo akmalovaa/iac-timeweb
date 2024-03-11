@@ -1,0 +1,17 @@
+---
+# Ожидание пока timerweb VPS станет доступен для подключения
+- name: Wait for timeweb VPS to become ready
+  hosts: monitoring
+  gather_facts: no
+  tasks:
+    - name: Wait for VPS to become reachable
+      wait_for_connection:
+        delay: 10
+        timeout: 600
+
+# Запуск основной роли
+- name: Start install services
+  hosts: monitoring
+  become: yes
+  roles:
+    - gatus

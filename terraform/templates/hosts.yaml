@@ -1,0 +1,5 @@
+monitoring:
+  hosts:
+    ${ip_address}:
+     ansible_ssh_user: 'root'
+     ansible_ssh_private_key_file: '/srv/ansible/ssh/id_rsa'

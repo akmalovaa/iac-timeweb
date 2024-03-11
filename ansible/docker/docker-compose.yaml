@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  gatus:
+    container_name: gatus
+    image: '{{ gatus_image }}'
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config:/config
+      - ./data:/data/
+
+  prometheus:
+    container_name: prometheus
+    image: '{{ prometheus_image }}'
+    restart: always
+    command: --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    container_name: grafana
+    image: '{{ grafana_image }}'
+    restart: always
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: '{{ grafana_secret }}'
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/grafana.ini/:/etc/grafana/grafana.ini:ro
+      - ./grafana/provisioning/:/etc/grafana/provisioning/:ro
+

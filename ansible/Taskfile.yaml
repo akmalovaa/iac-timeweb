@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  play:
+    desc: Ansible run playbook
+    cmds:
+      - ansible-playbook ansible/monitoring.yml

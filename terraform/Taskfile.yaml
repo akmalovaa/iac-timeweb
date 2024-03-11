@@ -1,0 +1,37 @@
+version: '3'
+
+tasks:
+  all:
+    - task: init
+    - task: refresh
+    - task: apply
+
+  init:
+    desc: Terraform initialize
+    dir: '{{.USER_WORKING_DIR}}/terraform'
+    cmds:
+      - terraform init
+
+  plan:
+    desc: Terraform plan IaC
+    dir: '{{.USER_WORKING_DIR}}/terraform'
+    cmds:
+      - terraform plan
+  
+  apply:
+    desc: Terraform plan IaC
+    dir: '{{.USER_WORKING_DIR}}/terraform'
+    cmds:
+      - terraform apply -auto-approve
+
+  refresh:
+    desc: Terraform refresh IaC
+    dir: '{{.USER_WORKING_DIR}}/terraform'
+    cmds:
+      - terraform apply -refresh-only -auto-approve
+
+  upgrade:
+    desc: Terraform upgrade IaC
+    dir: '{{.USER_WORKING_DIR}}/terraform'
+    cmds:
+      - terraform init -upgrade

@@ -1,0 +1,13 @@
+storage:
+  type: sqlite
+  path: /data/data.db
+
+metrics: true
+
+endpoints:
+  - name: my-site
+    url: https://akmalov.com
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"

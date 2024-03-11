@@ -1,0 +1,42 @@
+---
+- name: Check dir
+  file:
+    path: '{{ docker_main_dir }}'
+    state: directory
+
+- name: Stop container
+  become: true
+  shell: docker compose -f '{{ docker_main_dir }}/docker-compose.yaml' down
+  ignore_errors: true
+
+- name: Copy files
+  copy:
+    src: ./docker/
+    dest: '{{ docker_main_dir }}'
+    force: yes
+
+- name: Template docker-compose.yaml'
+  template:
+    src: ./docker/docker-compose.yaml
+    dest: '{{ docker_main_dir }}/docker-compose.yaml'
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Pull images
+  become: true
+  shell: docker compose -f '{{ docker_main_dir }}/docker-compose.yaml' pull
+
+- name: Start container
+  become: true
+  shell: docker compose -f '{{ docker_main_dir }}/docker-compose.yaml' up -d
+
+- name: Check container status
+  become: true
+  shell: docker compose ps -q gatus grafana prometheus
+  args:
+    chdir: '{{ docker_main_dir }}'
+  register: container_status
+
+- debug:
+    var: container_status.stdout_lines
