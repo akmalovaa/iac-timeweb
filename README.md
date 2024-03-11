@@ -1,4 +1,4 @@
-# IaC-timeweb
+# IaC timeweb
 
 Репозиторий для экспериментов с IaC Timeweb
 
@@ -17,7 +17,7 @@
 
 В отличии от **uptime-kuma** позволяет гибко настроить конфигурацию в `.yaml` формате
 
-Дополнительно в нагрузку подниму сервисы **Prometheus** + **Grafana**, и все вместе запустить в `docker-compose`
+Дополнительно в нагрузку подниму сервисы **Prometheus** + **Grafana**, все сервисы будут в `docker-compose`
 
 - **Terraform** - создание VPS
 - **Ansible** - установка софта, передача конфигурациионных файлов и запуск сервисов
@@ -34,11 +34,11 @@
 #### [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 Использовать локально или внутри подготовленного образа docker
 
-#### [Taskfile](https://taskfile.dev/) (не обязательно)
+#### [Taskfile](https://taskfile.dev/)
 Удобное использование заготовленных команд
 
-#### [Docker](https://docs.docker.com/engine/install) (не обязательно)
-Удобнее использовать Docker c уже подготовленным окружением и установленными:
+#### [Docker](https://docs.docker.com/engine/install) ⭐
+Удобнее использовать **docker image** c уже подготовленным окружением и установленными:
 - Ansible
 - Terraform
 - Taskfile
@@ -57,14 +57,14 @@ docker build -t iactools .
 > [!WARNING]  
 > При локальной сборке Dockerfile возможны проблемы из-за ограничений доступа hashicorp (использовать VPN)
 
-Или использовать готовый image: `docker pull iactools:latest` (исправить на github registry)
+Или использовать готовый image: `docker pull iactools:latest` (пока недоступно исправлю как залью на github registry)
 
 
 
 ### Настройка
 
 #### Учетная запись **timeweb**
-Войти или Зарегаться [реф.ссылка](https://timeweb.cloud/r/cp14436)
+Войти или зарегистрироваться [реф.ссылка](https://timeweb.cloud/r/cp14436)
 
 #### Настройка проекта
 В качестве названия проекта используется `homelab` нужно [создать](https://timeweb.cloud/my/projects) такой же или
@@ -145,6 +145,11 @@ task all_in
 docker run --rm -it -v .:/srv --env-file .env iactools task all_in
 ```
 
+Если есть **API-key, ssh-key** и **название проекта в Timeweb**.
+Все заработает с **default** переменными
+
+Если запустить повторно, ничего не сломается
+
 
 ---
 
@@ -171,3 +176,9 @@ task terraform:all
 ```bash
 task ansible:play
 ```
+
+## TODO:
+- Добавить **domain name** через DNS **Cloudflare** и привязать к новому IP - SSL cert и proxy (nginx, traefik или caddy)
+- Ansible **sync files** вместо **copy**
+- Проверить **terragrount**
+- Оповещение в **telegram** при завершении, что сервер поднялся и готов к работе (domain-name)
