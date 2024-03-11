@@ -45,10 +45,19 @@
 
 На локальной машине можно даже ничего не устанавливать кроме docker, но все равно рекомендовал бы Taskfile поставить
 
+**Собрать docker image**
+```bash
+task build
+```
+или
+```bash
+docker build -t iactools .
+```
+
 > [!WARNING]  
 > При локальной сборке Dockerfile возможны проблемы из-за ограничений доступа hashicorp (использовать VPN)
 
-Или использовать готовый image: `docker pull iactools:1.0.0`
+Или использовать готовый image: `docker pull iactools:latest` (исправить на github registry)
 
 
 
@@ -121,22 +130,32 @@ data "twc_presets" "main-preset" {
 
 ## Основные команды
 
-#### Собрать образ
+### All in one
+
+Сделать хорошо - одной командой
+
+Использовать в CI или вручную
+
 ```bash
-task build
+task all_in
 ```
-или
+
+Вариант без Taskfile 
 ```bash
-docker build -t iactools .
+docker run --rm -it -v .:/srv --env-file .env iactools task all_in
 ```
 
 
-#### Перейти в контейнер **iac tools**
+---
+
+#### Dev/Debug команды
+
+Перейти в контейнер **iac tools**
 
 ```bash
 task bash
 ```
-Или
+или
 ```bash
 docker run --rm -it -v .:/srv --env-file .env iactools bash
 ```
@@ -144,20 +163,11 @@ docker run --rm -it -v .:/srv --env-file .env iactools bash
 ### Terraform 
 
 ```bash
-task terraform:all 
+task terraform:all
 ```
 
 ### Ansible 
 
 ```bash
 task ansible:play
-```
-
-### All in one
-
-Сделать хорошо - одной командой
-Использовать в CI или вручную
-
-```bash
-task all_in
 ```
