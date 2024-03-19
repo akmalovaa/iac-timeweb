@@ -18,6 +18,6 @@ tasks:
     cmds:
       - $IAC_TOOLS bash
   
-  all_in:
+  create_server:
     - task: terraform:all
     - task: ansible:play

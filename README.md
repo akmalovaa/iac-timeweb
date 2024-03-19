@@ -137,7 +137,7 @@ data "twc_presets" "main-preset" {
 Использовать в CI или вручную
 
 ```bash
-task all_in
+task create_server
 ```
 
 Вариант без Taskfile 
