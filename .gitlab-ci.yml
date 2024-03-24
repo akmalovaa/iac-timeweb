@@ -1,0 +1,18 @@
+image: ghcr.io/akmalovaa/iac-tools
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  variables:
+    ANSIBLE_CONFIG: "./ansible/ansible.cfg"
+    TWC_TOKEN: $TWC_TOKEN
+  before_script:
+  - echo "$ANSIBLE_VAULT" > ./ansible/vault.key
+  - echo "$SSH_PRIVATE_KEY" > ./ansible/ssh/id_rsa
+  # - echo "$SSH_PUBLIC_KEY" > ./ansible/ssh/id_rsa.pub
+  - chmod -R 400 ./ssh
+  script:
+    - task create_server
+  when: manual

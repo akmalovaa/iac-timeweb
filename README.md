@@ -45,19 +45,12 @@
 
 На локальной машине можно даже ничего не устанавливать кроме docker, но все равно рекомендовал бы Taskfile поставить
 
-**Собрать docker image**
-```bash
-task build
-```
-или
-```bash
-docker build -t iactools .
-```
+**docker image**
+
+Собрать свой мли использовать готовый: `docker pull ghcr.io/akmalovaa/iac-tools`
 
 > [!WARNING]  
 > При локальной сборке Dockerfile возможны проблемы из-за ограничений доступа hashicorp (использовать VPN)
-
-Или использовать готовый image: `docker pull iactools:latest` (пока недоступно исправлю как залью на github registry)
 
 
 

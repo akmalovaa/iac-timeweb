@@ -1,18 +1,13 @@
 version: '3'
 
 env:
-  IAC_TOOLS: 'docker run --rm -it -v .:/srv --env-file .env iactools'
+  IAC_TOOLS: 'docker run --rm -it -v .:/srv --env-file .env ghcr.io/akmalovaa/iac-tools'
 
 includes:
   terraform: terraform/Taskfile.yaml
   ansible: ansible/Taskfile.yaml
 
 tasks:
-  build:
-    desc: "Only for build iac tools container"
-    cmds:
-      - docker build -t iactools .
-  
   bash:
     desc: "Only for exec iac tools container"
     cmds:
