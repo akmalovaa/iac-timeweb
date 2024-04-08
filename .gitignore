@@ -36,7 +36,7 @@ terraform.rc
 
 /ansible/ssh/id_rsa
 /ansible/ssh/id_rsa.pub
-# /ansible/vault.key
+/ansible/vault.key
 /ansible/hosts.yaml
 temp
 .env
