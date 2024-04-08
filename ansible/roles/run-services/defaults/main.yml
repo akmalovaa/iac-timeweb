@@ -1,0 +1,15 @@
+---
+# defaults settings
+
+main_dir: "{{ lookup('env', 'MAIN_DIR') | default('/srv/services')}}"
+
+# Gatus settings
+gatus_image: "{{ lookup('env', 'GATUS_IMAGE_TAG') | default('twinproduction/gatus:latest') }}"
+
+# Prometheus settings
+prometheus_image: "{{ lookup('env', 'PROMETHEUS_IMAGE') | default('prom/prometheus:latest') }}"
+
+# Grafana settings
+grafana_image: "{{ lookup('env', 'GRAFANA_IMAGE_TAG') | default('grafana/grafana:latest') }}"
+grafana_user: "{{ lookup('env', 'GRAFANA_USER') | default('admin') }}"
+grafana_password: "{{ lookup('env', 'GRAFANA_PASSWORD') | default('12345') }}"

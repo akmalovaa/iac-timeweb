@@ -16,7 +16,7 @@ data "twc_presets" "main-preset" {
 #   ram = 1024
 }
 
-# Есть возможность с уже установленным docker создать 
+# В timeweb есть возможность создать VPS с уже установленным docker (цена и тарифы такие же)
 # Доступные software можно посмотреть в web-gui Timeweb или по API https://api.timeweb.cloud/api/v1/software/servers
 data "twc_software" "software" {
   name = "Docker"

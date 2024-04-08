@@ -4,4 +4,4 @@ tasks:
   play:
     desc: Ansible run playbook
     cmds:
-      - ansible-playbook ansible/monitoring.yml
+      - ansible-playbook ansible/playbook.yaml

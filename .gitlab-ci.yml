@@ -1,18 +1,36 @@
+include: .gitlab-variables.yaml
+
 image: ghcr.io/akmalovaa/iac-tools
 
 stages:
-  - deploy
+  - linter
+  - terraform
+  - ansible
+
+.ansbile_prepare: &ansbile_prepare
+    - echo "$ANSIBLE_VAULT" > ansible/vault.key
+    - echo "$SSH_PRIVATE_KEY" > ansible/ssh/id_rsa
+    - chmod -R 400 ./ansible/ssh
+
+lint-docker-compose:
+  stage: linter
+  image: docker:dind
+  script:
+    - docker compose -f ./services/docker-compose.yaml config
+
+create-vps:
+  stage: terraform
+  variables:
+    TF_VAR_TWC_TOKEN: $TWC_TOKEN
+  script:
+    - task terraform:all # terraform init && terraform apply -refresh-only -auto-approve && terraform apply -auto-approve
+  when: manual
 
 deploy:
-  stage: deploy
+  stage: ansible
   variables:
     ANSIBLE_CONFIG: "./ansible/ansible.cfg"
-    TWC_TOKEN: $TWC_TOKEN
-  before_script:
-  - echo "$ANSIBLE_VAULT" > ./ansible/vault.key
-  - echo "$SSH_PRIVATE_KEY" > ./ansible/ssh/id_rsa
-  # - echo "$SSH_PUBLIC_KEY" > ./ansible/ssh/id_rsa.pub
-  - chmod -R 400 ./ssh
   script:
-    - task create_server
+    - *ansbile_prepare
+    - task ansbile:play # ansible-playbook ansible/playbook.yaml
   when: manual

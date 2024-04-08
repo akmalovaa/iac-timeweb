@@ -1,9 +1,9 @@
 ---
 # Example secret var
-# ansible-vault encrypt_string 'superpass' --name 'grafana_secret'
+# ansible-vault encrypt_string 'superpass' --name 'grafana_password'
 # ansible.cfg default use ansible/vault.key
 
-grafana_secret: !vault |
+grafana_password: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   36663361373631313865653664326131323663616538343138323265626535343739623330393933
   3262356266333366396363626536346161633238633237640a396661383364343765336564333465

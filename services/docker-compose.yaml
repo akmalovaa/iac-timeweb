@@ -1,9 +1,8 @@
-version: "3.9"
 services:
   gatus:
     container_name: gatus
-    image: '{{ gatus_image }}'
-    restart: always
+    image: ${GATUS_IMAGE_TAG:-twinproduction/gatus}
+    restart: unless-stopped
     ports:
       - "8080:8080"
     volumes:
@@ -11,9 +10,8 @@ services:
       - ./data:/data/
 
   prometheus:
-    container_name: prometheus
-    image: '{{ prometheus_image }}'
-    restart: always
+    image: ${PROMETHEUS_IMAGE_TAG:-prom/prometheus}
+    restart: unless-stopped
     command: --config.file=/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
@@ -21,11 +19,11 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
-    container_name: grafana
-    image: '{{ grafana_image }}'
-    restart: always
+    image: ${GRAFANA_IMAGE_TAG:-grafana/grafana}
+    restart: unless-stopped
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: '{{ grafana_secret }}'
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-12345}
     ports:
       - "3000:3000"
     volumes:

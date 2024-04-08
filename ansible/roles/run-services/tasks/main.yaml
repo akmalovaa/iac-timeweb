@@ -1,0 +1,46 @@
+---
+- name: Check dir
+  file:
+    path: '{{ main_dir }}'
+    state: directory
+
+- name: Remove old config
+  file: 
+    path: '{{ main_dir }}/config'
+    state: absent
+
+- name: Copy services directory
+  copy:
+    src: ../services/
+    dest: '{{ main_dir }}'
+    force: yes
+
+- name: Template docker.env variables
+  template:
+    src: ../services/.env.example
+    dest: '{{ main_dir }}/.env'
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Pull images
+  become: true
+  shell: docker compose -f '{{ main_dir }}/docker-compose.yaml' pull
+
+- name: Stop container
+  become: true
+  shell: docker compose -f '{{ main_dir }}/docker-compose.yaml' down
+
+- name: Start container
+  become: true
+  shell: docker compose -f '{{ main_dir }}/docker-compose.yaml' up -d
+
+- name: Check container status
+  become: true
+  shell: docker compose ps -q gatus grafana prometheus
+  args:
+    chdir: '{{ main_dir }}'
+  register: container_status
+
+- debug:
+    var: container_status.stdout_lines

@@ -14,4 +14,4 @@
   hosts: monitoring
   become: yes
   roles:
-    - gatus
+    - run-services

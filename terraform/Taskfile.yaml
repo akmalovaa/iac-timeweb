@@ -19,7 +19,7 @@ tasks:
       - terraform plan
   
   apply:
-    desc: Terraform plan IaC
+    desc: Terraform apply IaC
     dir: '{{.USER_WORKING_DIR}}/terraform'
     cmds:
       - terraform apply -auto-approve

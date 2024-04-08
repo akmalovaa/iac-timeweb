@@ -1,0 +1,18 @@
+variables:
+# Ansible config file
+  ANSIBLE_CONFIG: "./ansible/ansible.cfg"
+
+# Common settings
+  MAIN_DIR: /srv/monitoring
+
+# Services
+  GATUS_IMAGE_TAG: twinproduction/gatus:v5.7.0
+  PROMETHEUS_IMAGE_TAG: prom/prometheus:v2.50.1
+  GRAFANA_IMAGE_TAG: grafana/grafana:10.3.5-ubuntu
+  # GRAFANA_USER: admin
+  # GRAFANA_PASSWORD: 12345 
+
+# Данные переменные нужно добавить в Gitlab secret variables проекта или в .env файл для локального запуска
+  # ANSIBLE_VAULT: "example_pass"
+  # TF_VAR_TWC_TOKEN: "exaMpleT0kENJhbGciOiJSUzUxMi123981723sjsldfj12904ihodflhsoh2374"
+  # SSH_PRIVATE_KEY: "SSH_PRIVATE_KEY" # ansible/ssh/id_rsa

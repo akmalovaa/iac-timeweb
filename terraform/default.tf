@@ -8,5 +8,5 @@ terraform {
 }
 
 provider "twc" {
-  token = var.twc_token
+  token = var.TWC_TOKEN
 }
